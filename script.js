@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
+
     // --- Preloader Logic ---
     const preloader = document.getElementById('preloader');
     const progressBar = document.querySelector('.progress-bar');
@@ -21,57 +21,92 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, 100);
 
-    // --- Typing Effect ---
+    // --- Scramble Text Effect ---
+    class TextScrambler {
+        constructor(el) {
+            this.el = el;
+            this.chars = '!<>-_\\/[]{}—=+*^?#________';
+            this.update = this.update.bind(this);
+        }
+        setText(newText) {
+            const oldText = this.el.innerText;
+            const length = Math.max(oldText.length, newText.length);
+            const promise = new Promise((resolve) => (this.resolve = resolve));
+            this.queue = [];
+            for (let i = 0; i < length; i++) {
+                const from = oldText[i] || '';
+                const to = newText[i] || '';
+                const start = Math.floor(Math.random() * 40);
+                const end = start + Math.floor(Math.random() * 40);
+                this.queue.push({ from, to, start, end });
+            }
+            cancelAnimationFrame(this.frameRequest);
+            this.frame = 0;
+            this.update();
+            return promise;
+        }
+        update() {
+            let output = '';
+            let complete = 0;
+            for (let i = 0, n = this.queue.length; i < n; i++) {
+                let { from, to, start, end, char } = this.queue[i];
+                if (this.frame >= end) {
+                    complete++;
+                    output += to;
+                } else if (this.frame >= start) {
+                    if (!char || Math.random() < 0.28) {
+                        char = this.randomChar();
+                        this.queue[i].char = char;
+                    }
+                    output += `<span class="scramble-char">${char}</span>`;
+                } else {
+                    output += from;
+                }
+            }
+            this.el.innerHTML = output;
+            if (complete === this.queue.length) {
+                this.resolve();
+            } else {
+                this.frameRequest = requestAnimationFrame(this.update);
+                this.frame++;
+            }
+        }
+        randomChar() {
+            return this.chars[Math.floor(Math.random() * this.chars.length)];
+        }
+    }
+
     const typingText = document.getElementById('typing-text');
     const roles = [
         'Cybersecurity Student',
-        'Aspiring Analyst',
         'Ethical Hacker',
-        'Problem Solver',
+        'Security Analyst',
+        'Network Specialist',
         'Linux Enthusiast'
     ];
+
+    const scrambler = new TextScrambler(typingText);
     let roleIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    let typeSpeed = 100;
 
-    function type() {
-        const currentRole = roles[roleIndex];
-        
-        if (isDeleting) {
-            typingText.textContent = currentRole.substring(0, charIndex - 1);
-            charIndex--;
-            typeSpeed = 50;
-        } else {
-            typingText.textContent = currentRole.substring(0, charIndex + 1);
-            charIndex++;
-            typeSpeed = 150;
-        }
+    const nextRole = () => {
+        scrambler.setText(roles[roleIndex]).then(() => {
+            setTimeout(nextRole, 2500);
+        });
+        roleIndex = (roleIndex + 1) % roles.length;
+    };
 
-        if (!isDeleting && charIndex === currentRole.length) {
-            isDeleting = true;
-            typeSpeed = 2000; // Pause at end
-        } else if (isDeleting && charIndex === 0) {
-            isDeleting = false;
-            roleIndex = (roleIndex + 1) % roles.length;
-            typeSpeed = 500;
-        }
-
-        setTimeout(type, typeSpeed);
-    }
-
-    type();
+    nextRole();
 
     // --- Sticky Navbar & Scroll Progress ---
     const navbar = document.getElementById('navbar');
-    
+
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
         }
-        
+
         // Reveal elements on scroll
         reveal();
     });
@@ -79,12 +114,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Scroll Reveal Animation ---
     function reveal() {
         const reveals = document.querySelectorAll('.reveal');
-        
+
         reveals.forEach(element => {
             const windowHeight = window.innerHeight;
             const elementTop = element.getBoundingClientRect().top;
             const elementVisible = 150;
-            
+
             if (elementTop < windowHeight - elementVisible) {
                 element.classList.add('active');
             }
@@ -123,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const submitBtn = contactForm.querySelector('button');
             const originalText = submitBtn.textContent;
-            
+
             submitBtn.textContent = 'SENDING...';
             submitBtn.disabled = true;
 
@@ -147,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     top: target.offsetTop - 70,
                     behavior: 'smooth'
                 });
-                
+
                 // Close mobile menu if open
                 if (navLinks.classList.contains('nav-active')) {
                     navLinks.classList.remove('nav-active');
@@ -207,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cursor.style.top = e.clientY + 'px';
         cursorDot.style.left = e.clientX + 'px';
         cursorDot.style.top = e.clientY + 'px';
-        
+
         // Mouse glow following with slight delay for smoothness
         mouseGlow.style.left = e.clientX + 'px';
         mouseGlow.style.top = e.clientY + 'px';
@@ -226,22 +261,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 3D Tilt Effect for Cards ---
     const cards = document.querySelectorAll('.project-card, .skill-card');
-    
+
     cards.forEach(card => {
         card.addEventListener('mousemove', e => {
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
-            
+
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
-            
+
             const rotateX = (y - centerY) / 10;
             const rotateY = (centerX - x) / 10;
-            
+
             card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
         });
-        
+
         card.addEventListener('mouseleave', () => {
             card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
         });
@@ -249,22 +284,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Magnetic Buttons ---
     const magneticBtns = document.querySelectorAll('.btn');
-    
+
     magneticBtns.forEach(btn => {
         btn.addEventListener('mousemove', e => {
             const rect = btn.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
-            
+
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
-            
+
             const moveX = (x - centerX) / 2;
             const moveY = (y - centerY) / 2;
-            
+
             btn.style.transform = `translate(${moveX}px, ${moveY}px)`;
         });
-        
+
         btn.addEventListener('mouseleave', () => {
             btn.style.transform = 'translate(0, 0)';
         });
@@ -276,41 +311,41 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.hero-content').appendChild(terminalOutput);
 
     const logs = [
-        '[INFO] Initializing secure connection...',
-        '[OK] Firewall bypassed.',
-        '[INFO] Scanning for vulnerabilities...',
-        '[WARN] Potential SQL injection detected.',
-        '[INFO] Accessing local database...',
-        '[SUCCESS] User "Surya" authenticated.'
+        '<span class="log-info">[INFO]</span> Initializing secure connection...',
+        '<span class="log-ok">[OK]</span> Firewall bypassed.',
+        '<span class="log-info">[INFO]</span> Scanning for vulnerabilities...',
+        '<span class="log-warn">[WARN]</span> Potential SQL injection detected.',
+        '<span class="log-info">[INFO]</span> Accessing local database...',
+        '<span class="log-success">[SUCCESS]</span> User "Surya" authenticated.',
+        '<span class="log-info">[INFO]</span> System status: SECURE',
+        '<span class="log-warn">[ALERT]</span> Unauthorized access attempt blocked.'
     ];
     let logIndex = 0;
 
     function addLog() {
         if (logIndex < logs.length) {
             const logEntry = document.createElement('p');
-            logEntry.textContent = logs[logIndex];
-            logEntry.style.fontSize = '0.8rem';
-            logEntry.style.fontFamily = 'monospace';
-            logEntry.style.color = '#00ff41';
-            logEntry.style.opacity = '0.7';
-            logEntry.style.marginBottom = '5px';
+            logEntry.innerHTML = logs[logIndex];
+            logEntry.className = 'log-line';
             terminalOutput.appendChild(logEntry);
-            
+
+            // Auto scroll to bottom
+            terminalOutput.scrollTop = terminalOutput.scrollHeight;
+
             // Limit logs displayed
-            if (terminalOutput.children.length > 6) {
+            if (terminalOutput.children.length > 10) {
                 terminalOutput.removeChild(terminalOutput.firstChild);
             }
-            
+
             logIndex++;
-            setTimeout(addLog, 1200);
+            setTimeout(addLog, 800 + Math.random() * 1000);
         } else {
-            // Loop or stop
             logIndex = 0;
-            setTimeout(addLog, 5000); // Restart after pause
+            setTimeout(addLog, 4000);
         }
     }
-    
+
     if (document.querySelector('.hero-content')) {
-        setTimeout(addLog, 2000);
+        setTimeout(addLog, 1500);
     }
 });

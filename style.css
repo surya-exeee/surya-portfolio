@@ -1,16 +1,50 @@
-/* --- CSS Variables --- */
 :root {
-    --bg-color: #0a0a0a;
-    --bg-darker: #050505;
+    --bg-color: #050505;
+    --bg-darker: #020202;
     --accent-green: #00ff41;
+    --accent-green-glow: rgba(0, 255, 65, 0.4);
     --accent-cyan: #00f3ff;
-    --text-primary: #e0e0e0;
-    --text-secondary: #a0a0a0;
-    --glass-bg: rgba(20, 20, 20, 0.8);
-    --glass-border: rgba(0, 243, 255, 0.2);
+    --accent-cyan-glow: rgba(0, 243, 255, 0.4);
+    --accent-red: #ff3131;
+    --text-primary: #f0f0f0;
+    --text-secondary: #888888;
+    --glass-bg: rgba(10, 10, 10, 0.7);
+    --glass-border: rgba(0, 243, 255, 0.15);
+    --glass-border-green: rgba(0, 255, 65, 0.15);
     --nav-height: 80px;
-    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    --cyber-shadow: 0 0 20px rgba(0, 243, 255, 0.15);
 }
+
+/* --- Visual Overlays --- */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
+                linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+    background-size: 100% 4px, 3px 100%;
+    z-index: 9998;
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+.noise-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/svg+xml,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)"/></svg>');
+    opacity: 0.03;
+    z-index: 9997;
+    pointer-events: none;
+}
+
 
 /* --- Reset & Global Styles --- */
 * {
@@ -27,6 +61,24 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
     cursor: none;
+}
+
+/* --- Custom Scrollbar --- */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(var(--accent-cyan), var(--accent-green));
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-cyan);
 }
 
 /* Fallback for mobile/touch devices */
@@ -66,6 +118,9 @@ h4,
 
 .bg-darker {
     background-color: var(--bg-darker);
+    background-image: 
+        radial-gradient(circle at 2px 2px, rgba(0, 243, 255, 0.05) 1px, transparent 0);
+    background-size: 24px 24px;
 }
 
 .accent-green {
@@ -144,10 +199,11 @@ a {
 }
 
 #navbar.scrolled {
-    background: var(--glass-bg);
-    backdrop-filter: blur(10px);
+    background: rgba(5, 5, 5, 0.85);
+    backdrop-filter: blur(20px) saturate(180%);
     border-bottom: 1px solid var(--glass-border);
     height: 70px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 #navbar .container {
@@ -271,6 +327,12 @@ a {
     color: var(--accent-cyan);
 }
 
+.scramble-char {
+    color: var(--accent-green);
+    font-weight: bold;
+    text-shadow: 0 0 5px var(--accent-green-glow);
+}
+
 @keyframes cursor-blink {
     50% {
         opacity: 0;
@@ -284,16 +346,40 @@ a {
 }
 
 .terminal-logs {
-    background: rgba(0, 0, 0, 0.4);
-    border-left: 2px solid var(--accent-green);
+    background: rgba(0, 0, 0, 0.6);
+    border-left: 2px solid var(--accent-cyan);
     padding: 15px;
     border-radius: 4px;
-    max-width: 400px;
-    height: 150px;
-    overflow-y: hidden;
-    backdrop-filter: blur(5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    max-width: 450px;
+    height: 180px;
+    overflow-y: auto;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(0, 243, 255, 0.1);
+    margin-top: 2rem;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-cyan) transparent;
 }
+
+.terminal-logs::-webkit-scrollbar {
+    width: 4px;
+}
+
+.terminal-logs::-webkit-scrollbar-thumb {
+    background: var(--accent-cyan);
+}
+
+.log-line {
+    font-size: 0.85rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: #fff;
+    margin-bottom: 6px;
+    opacity: 0.9;
+}
+
+.log-info { color: var(--accent-cyan); }
+.log-ok { color: var(--accent-green); }
+.log-warn { color: #ffcc00; }
+.log-success { color: var(--accent-green); font-weight: bold; }
 
 .btn {
     padding: 12px 28px;
@@ -311,14 +397,33 @@ a {
 .btn-primary {
     background: var(--accent-green);
     color: #000;
-    box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+    box-shadow: 0 0 15px var(--accent-green-glow);
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transform: rotate(45deg);
+    transition: 0.5s;
+    pointer-events: none;
+}
+
+.btn-primary:hover::before {
+    left: 100%;
 }
 
 .btn-primary:hover {
-    background: transparent;
-    color: var(--accent-green);
-    box-shadow: 0 0 20px var(--accent-green);
-    outline: 1px solid var(--accent-green);
+    background: var(--accent-green);
+    color: #000;
+    box-shadow: 0 0 25px var(--accent-green);
+    transform: translateY(-2px);
 }
 
 .btn-secondary {
@@ -408,30 +513,43 @@ a {
 
 /* --- Section Header --- */
 .section-header {
-    margin-bottom: 60px;
+    margin-bottom: 80px;
+    position: relative;
+    display: inline-block;
 }
 
 .section-title {
-    font-size: 2rem;
+    font-size: 2.5rem;
     color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    position: relative;
+    padding: 10px 20px;
+}
+
+.section-title::before, .section-title::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-color: var(--accent-cyan);
+    border-style: solid;
+}
+
+.section-title::before {
+    top: 0;
+    left: 0;
+    border-width: 2px 0 0 2px;
+}
+
+.section-title::after {
+    bottom: 0;
+    right: 0;
+    border-width: 0 2px 2px 0;
 }
 
 .title-underline {
-    width: 100px;
-    height: 4px;
-    background: var(--accent-cyan);
-    margin-top: 10px;
-    position: relative;
-}
-
-.title-underline::after {
-    content: '';
-    position: absolute;
-    right: -20px;
-    top: 0;
-    width: 10px;
-    height: 100%;
-    background: var(--accent-green);
+    display: none; /* Replaced by corners */
 }
 
 /* --- About Section --- */
@@ -517,16 +635,17 @@ a {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
     padding: 40px 30px;
-    border-radius: 12px;
-    transition: transform 0.1s ease-out, border-color 0.3s, box-shadow 0.3s;
+    border-radius: 4px;
+    backdrop-filter: blur(15px);
+    transition: var(--transition-smooth);
     position: relative;
     overflow: hidden;
 }
 
 .skill-card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-10px) scale(1.02);
     border-color: var(--accent-cyan);
-    box-shadow: 0 10px 30px rgba(0, 243, 255, 0.1);
+    box-shadow: 0 0 30px var(--accent-cyan-glow);
 }
 
 .skill-card::before {
@@ -581,14 +700,16 @@ a {
 .project-card {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
-    border-radius: 12px;
+    border-radius: 4px;
     overflow: hidden;
-    transition: transform 0.1s ease-out, border-color 0.3s, box-shadow 0.3s;
+    backdrop-filter: blur(15px);
+    transition: var(--transition-smooth);
 }
 
 .project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transform: translateY(-10px) scale(1.02);
+    border-color: var(--accent-green);
+    box-shadow: 0 0 30px var(--accent-green-glow);
 }
 
 .project-img {
