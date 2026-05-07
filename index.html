@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surya | Cybersecurity Portfolio</title>
+    <meta name="description"
+        content="Professional portfolio of Surya, a Cybersecurity Student and Aspiring Analyst based in India.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Outfit:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+    <div class="custom-cursor-dot"></div>
+    <div class="mouse-glow"></div>
+
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="loader-content">
+            <span class="loader-text">INITIALIZING_SYSTEM...</span>
+            <div class="progress-bar-container">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sticky Navbar -->
+    <nav id="navbar">
+        <div class="container">
+            <div class="logo">
+                <a href="#home"><span class="accent-cyan">&lt;</span>Surya<span
+                        class="accent-cyan">/&gt;</span></a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <p class="hero-subtitle">SYSTEM_STATUS: <span class="status-online">ONLINE</span></p>
+                <h1 class="hero-title">Hi, I'm <span class="accent-green">Surya</span></h1>
+                <h2 class="hero-role">I am a <span id="typing-text"></span><span class="cursor">|</span></h2>
+                <p class="hero-tagline">Securing the digital frontier through ethical hacking and robust networking
+                    solutions.</p>
+                <div class="hero-btns">
+                    <a href="#contact" class="btn btn-primary">Hire Me</a>
+                    <a href="#projects" class="btn btn-secondary">View Work</a>
+                </div>
+            </div>
+        </div>
+        <div class="hero-bg-elements">
+            <canvas id="matrix-canvas"></canvas>
+            <div class="grid-overlay"></div>
+            <div class="glow-sphere"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">01. About_Me</h2>
+                <div class="title-underline"></div>
+            </div>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>I am a highly motivated <span class="accent-cyan">Cybersecurity Student</span> based in <span
+                            class="accent-cyan">Kadapa, India</span>, with a passion for identifying vulnerabilities and
+                        implementing defense mechanisms. My journey in tech is driven by curiosity and a commitment to
+                        making the internet a safer place.</p>
+                    <p>Currently focused on deepening my knowledge in <span class="accent-green">Ethical Hacking</span>
+                        and <span class="accent-green">Network Security</span>. I thrive on solving complex problems and
+                        staying ahead of emerging threats in the ever-evolving digital landscape.</p>
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">10+</span>
+                            <span class="stat-label">Lab Projects</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">5+</span>
+                            <span class="stat-label">Certifications</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=600"
+                            alt="Cybersecurity Visual">
+                        <div class="image-overlay"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills section bg-darker">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">02. Technical_Skills</h2>
+                <div class="title-underline"></div>
+            </div>
+            <div class="skills-grid">
+                <!-- Skill Category: Networking -->
+                <div class="skill-card reveal">
+                    <div class="skill-icon"><i class="fas fa-network-wired"></i></div>
+                    <h3>Networking</h3>
+                    <ul class="skill-list">
+                        <li>TCP/IP Protocols</li>
+                        <li>DNS, DHCP, HTTP/S</li>
+                        <li>Subnetting & Routing</li>
+                        <li>Wireshark Analysis</li>
+                    </ul>
+                </div>
+                <!-- Skill Category: Security -->
+                <div class="skill-card reveal">
+                    <div class="skill-icon"><i class="fas fa-user-shield"></i></div>
+                    <h3>Security</h3>
+                    <ul class="skill-list">
+                        <li>Ethical Hacking Basics</li>
+                        <li>Penetration Testing</li>
+                        <li>Vulnerability Assessment</li>
+                        <li>OWASP Top 10</li>
+                    </ul>
+                </div>
+                <!-- Skill Category: Tools & OS -->
+                <div class="skill-card reveal">
+                    <div class="skill-icon"><i class="fab fa-linux"></i></div>
+                    <h3>Tools & OS</h3>
+                    <ul class="skill-list">
+                        <li>Linux (Kali, Ubuntu)</li>
+                        <li>Nmap & Metasploit</li>
+                        <li>Python Scripting</li>
+                        <li>Bash Shell</li>
+                    </ul>
+                </div>
+                <!-- Skill Category: Soft Skills -->
+                <div class="skill-card reveal">
+                    <div class="skill-icon"><i class="fas fa-brain"></i></div>
+                    <h3>Problem Solving</h3>
+                    <ul class="skill-list">
+                        <li>Analytical Thinking</li>
+                        <li>Incident Response</li>
+                        <li>Fast Learner</li>
+                        <li>Team Collaboration</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">03. Featured_Projects</h2>
+                <div class="title-underline"></div>
+            </div>
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card reveal">
+                    <div class="project-img">
+                        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=600"
+                            alt="Project 1">
+                        <div class="project-links">
+                            <a href="#"><i class="fab fa-github"></i></a>
+                            <a href="#"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-tag">Python / Networking</span>
+                        <h3>Automated Network Scanner</h3>
+                        <p>A multi-threaded Python script that scans local networks for active hosts, open ports, and
+                            identifies running services using Nmap integration.</p>
+                        <div class="project-tech">
+                            <span>Python</span>
+                            <span>Nmap</span>
+                            <span>Sockets</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 2 -->
+                <div class="project-card reveal">
+                    <div class="project-img">
+                        <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=600"
+                            alt="Project 2">
+                        <div class="project-links">
+                            <a href="#"><i class="fab fa-github"></i></a>
+                            <a href="#"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-tag">Security / Lab</span>
+                        <h3>Vulnerability Lab Setup</h3>
+                        <p>Designed and deployed a virtualized penetration testing lab using VirtualBox, featuring
+                            Metasploitable2 and OWASP Juice Shop targets.</p>
+                        <div class="project-tech">
+                            <span>VirtualBox</span>
+                            <span>Linux</span>
+                            <span>Docker</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 3 -->
+                <div class="project-card reveal">
+                    <div class="project-img">
+                        <img src="https://images.unsplash.com/photo-1510511459019-5dee211c6fe2?auto=format&fit=crop&q=80&w=600"
+                            alt="Project 3">
+                        <div class="project-links">
+                            <a href="#"><i class="fab fa-github"></i></a>
+                            <a href="#"><i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <span class="project-tag">Encryption / Python</span>
+                        <h3>Custom Encryptor Tool</h3>
+                        <p>Developed a secure file encryption tool utilizing AES-256 GCM mode with Python's cryptography
+                            library for secure data storage.</p>
+                        <div class="project-tech">
+                            <span>Python</span>
+                            <span>AES-256</span>
+                            <span>Cryptography</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resume Section -->
+    <section class="resume-section section bg-darker">
+        <div class="container text-center">
+            <h2>Ready to collaborate?</h2>
+            <p>Download my full technical resume to see my detailed qualifications and certifications.</p>
+            <a href="#" class="btn btn-primary btn-large"><i class="fas fa-download"></i> Download Resume</a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">04. Get_In_Touch</h2>
+                <div class="title-underline"></div>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Contact Details</h3>
+                    <p>I'm currently looking for internships and junior roles in Cybersecurity. My inbox is always open!
+                    </p>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>yeturisurya@gmail.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-location-dot"></i>
+                        <span>Kadapa, India</span>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="contact-form-container">
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <input type="text" id="name" placeholder="Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="email" placeholder="Email" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="message" rows="5" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2026 <span class="accent-green">Surya</span>. All rights reserved.</p>
+                <p class="built-with">Built with <span class="accent-cyan">HTML, CSS & JS</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
